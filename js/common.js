@@ -24,8 +24,8 @@ smjq(document).ready(function(){
 		var docMouseMoveEvent = document.onmousemove;
 		var docMouseUpEvent = document.onmouseup;
 
-		smjq("body").append('<div id="smchuncai" onfocus="this.blur();" style="color:#626262;z-index:999;"><div id="chuncaiface"></div><div id="dialog_chat"><div id="chat_top"></div><div id="dialog_chat_contents"><div id="dialog_chat_loading"></div><div id="tempsaying"></div><div id="showchuncaimenu"><ul class="wcc_mlist" id="shownotice">显示公告</ul><ul class="wcc_mlist" id="chatTochuncai">聊&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;天</ul><ul class="wcc_mlist" id="foods">吃 零 食</ul><ul class="wcc_mlist" id="blogmanage">见我家长</ul><ul class="wcc_mlist" id="lifetimechuncai">生存时间</ul><ul class="wcc_mlist" id="closechuncai">关闭春菜</ul></div><div><ul id="chuncaisaying"></ul></div><div id="getmenu"> </div></div><div id="chat_bottom"></div></div></div>');
-		smjq("#smchuncai").append('<div id="addinput"><div id="inp_l"><input id="talk" type="text" name="mastersay" value="" /> <input id="talkto" type="button" value=" " /></div><div id="inp_r"> X </div></div>');
+		smjq("body").append('<div id="smchuncai" onfocus="this.blur();" style="color:#626262;z-index:999;"><div id="chuncaiface"></div><div id="dialog_chat"><div id="chat_top"></div><div id="dialog_chat_contents"><div id="dialog_chat_loading"></div><div id="tempsaying"></div><div id="showchuncaimenu"><ul class="wcc_mlist" id="shownotice">显示公告</ul><ul class="wcc_mlist" id="chatTochuncai">聊&nbsp;&nbsp;&nbsp;&nbsp;天</ul><ul class="wcc_mlist" id="foods">吃 零 食</ul><ul class="wcc_mlist" id="blogmanage">见我家长</ul><ul class="wcc_mlist" id="lifetimechuncai">生存时间</ul><ul class="wcc_mlist" id="closechuncai">关闭春菜</ul></div><div><ul id="chuncaisaying"></ul></div><div id="getmenu"> </div></div><div id="chat_bottom"></div></div></div>');
+		smjq("#smchuncai").append('<div id="addinput"><div id="inp_l"><input id="talk" type="text" name="mastersay" value="" onkeypress="if(event.keyCode==13) {talkto.click();return false;}" /> <input id="talkto" name="talkto" type="button" value=" " /></div><div id="inp_r"> X </div></div>');
 		smjq("body").append('<div id="callchuncai">召唤春菜</div>');
 		//判断春菜是否处于隐藏状态
 		var is_closechuncai = getCookie("is_closechuncai");
@@ -295,7 +295,17 @@ function getdata(el, id){
 				chuncaiSay(dat.notice);
 				setFace(1);
 			}else if(el == 'showlifetime'){
-				chuncaiSay(dat.showlifetime);
+
+				var showlifetime = dat.showlifetime.replace(/\$time_str\$/,'许久');
+				if( !isNaN(parseInt(dat.lifetime[dat.defaultccs])) ){
+					var this_time = new Date();
+					var build_time = new Date(dat.lifetime[dat.defaultccs]);
+					var time_str = dateDiff(build_time, this_time);
+
+					showlifetime = dat.showlifetime.replace(/\$time_str\$/,time_str);
+				}
+
+				chuncaiSay(showlifetime);
 			}else if(el == 'talking'){
 				var talkcon = smjq("#talk").val();
 				var i = in_array(talkcon, dat.ques);
@@ -441,4 +451,41 @@ function setCookie(name, val, ex){
 function getCookie(name){
 	var arr = document.cookie.match(new RegExp("(^| )"+name+"=([^;]*)(;|$)"));   
 	if(arr != null) return unescape(arr[2]); return null;
+}
+
+function dateDiff(date1, date2){
+	var date3=date2.getTime()-date1.getTime()  //时间差的毫秒数
+	//计算出相差天数
+	var days=Math.floor(date3/(24*3600*1000))
+	 //注:Math.floor(float) 这个方法的用法是: 传递一个小数,返回一个最接近当前小数的整数,
+
+	//计算出小时数
+	var leave1=date3%(24*3600*1000)    //计算天数后剩余的毫秒数
+	var hours=Math.floor(leave1/(3600*1000))
+	//计算相差分钟数
+	var leave2=leave1%(3600*1000)        //计算小时数后剩余的毫秒数
+	var minutes=Math.floor(leave2/(60*1000))
+
+	//计算相差秒数
+	var leave3=leave2%(60*1000)      //计算分钟数后剩余的毫秒数
+	var seconds=Math.round(leave3/1000)
+
+	var str = '';
+	if( days>0 ){
+		str += ' <font color="red">'+days+"</font> 天";
+	}
+
+	if( hours>0 ){
+		str += ' <font color="red">'+hours+"</font> 小时";
+	}
+
+	if( minutes>0 ){
+		str += ' <font color="red">'+minutes+"</font> 分钟";
+	}
+
+	if( seconds>0 ){
+		str += ' <font color="red">'+seconds+"</font> 分钟";
+	}
+
+	return str;
 }
