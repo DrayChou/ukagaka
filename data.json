@@ -1,0 +1,45 @@
+﻿{
+    "notice":"主人暂时还没有写公告呢，这是主人第一次使用伪春菜吧",
+    "adminname":"",
+    "isnotice":"",
+    "ques":
+        [
+            "早上好",
+            "中午好",
+            "下午好",
+            "晚上好",
+            "晚安"
+        ],
+    "ans":
+        [
+            "早上好～",
+            "中午好～",
+            "下午好～",
+            "晚上好～",
+            "晚安～"
+        ],
+    "lifetime":
+        {
+            "rakutori":1371544094,
+            "neko":1371544094,
+            "chinese_moe":1371544094
+        },
+    "ccs":
+        [
+            "rakutori",
+            "neko",
+            "chinese_moe"
+        ],
+    "defaultccs":"rakutori",
+    "foods":
+        [
+            "金坷垃",
+            "咸梅干"
+        ],
+    "eatsay":
+        [
+            "吃了金坷垃，一刀能秒一万八～！",
+            "吃咸梅干，变超人！哦耶～～～"
+        ],
+    "showlifetime":'我已经与主人  一起生存了 <font color="red"></font> 天 <font color="red"></font> 小时 <font color="red"></font> 分钟 <font color="red"></font> 秒的快乐时光啦～*^_^*'
+}
