@@ -8,6 +8,8 @@
  * @param integer callID internel use only.
  */
 
+//来自：http://www.im87.cn/blog/252
+
 function include(file, callback, callID) {
     var f = arguments.callee;
 
@@ -91,24 +93,7 @@ function include(file, callback, callID) {
 // include("http://code.jquery.com/jquery.min.js", function() {
 //     alert("i\'m callback!");
 // });
-
-
-//站点地址
-var _site_path = "";
-//请求的数据文件地址
-var _weichuncai_path = "data.json";
-var imagewidth = '240';
-var imageheight = '240';
-var talkself_user = [
-    ["嘻嘻嘻嘻嘻嘻，主人的伪春菜可以自定义说什么话了。", "2"],
-    ["喔耶～加油！加油！加油！加油！", "2"],
-    ["有发现春菜有什么bug，请大家回馈呀。", "3"],
-    ["这次有空的话，主人会添加伪春菜的透明度设定。^_^", "2"],
-    ["主人现在老是弃旧迎新，朋友们都好伤心啊..", "3"],
-    ["哇啊啊啊啊啊啊啊啊啊...", "3"],
-    ["主人的3DS FC是：1676-3649-4781，加了记得留言跟他说啊。", "2"],
-    ["现在博客已经搬到新的VPS主机了，速度应该不错吧？", "1"]
-];
+// 
 
 // 第二种 多个文件，带回调
 // 多个文件以数组的形式书写，每个文件可以单独带回调，
@@ -116,9 +101,26 @@ var talkself_user = [
 include([
     ["css/style.css"],
     ["http://code.jquery.com/jquery.min.js"],
-    ["js/common.js",
+    ["js/common_v2.js",
         function() {
-            createFace("skin/default/face1.gif", "skin/default/face2.gif", "skin/default/face3.gif");
+            //createFace("skin/default/face1.gif", "skin/default/face2.gif", "skin/default/face3.gif");
+            WCC.init({
+                '_site_path': "", //站点地址
+                '_weichuncai_path': "data.json", //请求的数据文件地址
+                'imagewidth': "240",
+                'imageheight': "240",
+                'ghost': "rakutori",
+                'talkself_user': [
+                    ["嘻嘻嘻嘻嘻嘻，主人的伪春菜可以自定义说什么话了。", "2"],
+                    ["喔耶～加油！加油！加油！加油！", "2"],
+                    ["有发现春菜有什么bug，请大家回馈呀。", "3"],
+                    ["这次有空的话，主人会添加伪春菜的透明度设定。^_^", "2"],
+                    ["主人现在老是弃旧迎新，朋友们都好伤心啊..", "3"],
+                    ["哇啊啊啊啊啊啊啊啊啊...", "3"],
+                    ["主人的3DS FC是：1676-3649-4781，加了记得留言跟他说啊。", "2"],
+                    ["现在博客已经搬到新的VPS主机了，速度应该不错吧？", "1"]
+                ]
+            });
             //var talkself_arr = talkself_arr.concat(talkself_user);
         }
     ]

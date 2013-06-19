@@ -286,7 +286,8 @@ function createFace(a, b, c) {
 }
 
 function setFace(num) {
-	obj = document.getElementById("hf" + num).src;
+	//obj = document.getElementById("hf" + num).src;
+	obj = smjq('#hf' + num).attr('src');
 	smjq("#chuncaiface").attr("style", "background:url(" + obj + ") no-repeat scroll 50% 0% transparent; width:" + imagewidth + "px;height:" + imageheight + "px;");
 }
 
@@ -411,6 +412,9 @@ var talkself_arr = [
 
 function talkSelf(talktime) {
 	talktime++;
+	if( talkself_arr == undefined ){
+		return;
+	}
 	var tslen = talkself_arr.length;
 	/*	if(parseInt(tsi) >= parseInt(tslen)){
 		tsi = 0;
