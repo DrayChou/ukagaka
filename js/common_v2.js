@@ -10,22 +10,18 @@ var ghost = {
 	],
 
 	data: {
-		_weichuncai_path: 'data.json'
+		WCC: {}
+	},
 
-	}
-
-	init: function(data) {
-		if (data._weichuncai_path) {
-			this.data._weichuncai_path = data._weichuncai_path;
-		}
-
+	init: function(WCC) {
+		this.data.WCC = WCC;
 		this.createFace();
-	}
+	},
 
-	shownotice: function(closeChuncaiMenu) {
+	shownotice: function() {
 		this.getdata("getnotice");
 		this.setFace(1);
-		closeChuncaiMenu();
+		this.closeChuncaiMenu();
 	},
 
 	chatTochuncai: function() {
@@ -42,15 +38,15 @@ var ghost = {
 		this.showInput();
 	},
 
-	foods: function(closeChuncaiMenu, closeNotice) {
-		closeChuncaiMenu();
-		closeNotice();
+	foods: function() {
+		this.closeChuncaiMenu();
+		this.closeNotice();
 		this.getdata("foods");
-	}
+	},
 
-	meetparents: function(closeChuncaiMenu, closeNotice) {
-		closeChuncaiMenu();
-		closeNotice();
+	meetparents: function() {
+		this.closeChuncaiMenu();
+		this.closeNotice();
 		//smjq("#getmenu").css("display", "none");
 		this.chuncaiSay("马上就跳转到我父母去了哦～～～");
 		this.setFace(2);
@@ -60,87 +56,18 @@ var ghost = {
 		}, 2000);
 	},
 
-	lifetimechuncai: function(closeChuncaiMenu, closeNotice) {
-		closeChuncaiMenu();
-		closeNotice();
+	lifetimechuncai: function() {
+		this.closeChuncaiMenu();
+		this.closeNotice();
 		this.setFace(2);
 		this.getdata('showlifetime');
 	},
 
-	getdata: function(el, id) {
-		smjq.ajax({
-			type: 'GET',
-			url: this.data._weichuncai_path,
-			cache: 'false',
-			dataType: 'html',
-			contentType: 'application/json; charset=utf8',
-			beforeSend: function() {
-				//smjq("#dialog_chat").fadeOut("normal");
-				smjq("#tempsaying").css('display', "none");
-				smjq("#dialog_chat_loading").fadeIn("normal");
-			},
-			success: function(data) {
-				smjq("#dialog_chat_loading").css('display', "none");
-				//smjq("#dialog_chat").fadeIn("normal");
-				smjq("#tempsaying").css('display', "");
-				var dat = eval("(" + data + ")");
-				if (el == 'defaultccs') {
-					chuncaiSay(dat.defaultccs);
-				} else if (el == 'getnotice') {
-					chuncaiSay(dat.notice);
-					this.setFace(1);
-				} else if (el == 'showlifetime') {
 
-					var showlifetime = dat.showlifetime.replace(/\$time_str\$/, '许久');
-					if (!isNaN(parseInt(dat.lifetime[dat.defaultccs]))) {
-						var this_time = new Date();
-						var build_time = new Date(dat.lifetime[dat.defaultccs]);
-						var time_str = this.tools.dateDiff(build_time, this_time);
 
-						showlifetime = dat.showlifetime.replace(/\$time_str\$/, time_str);
-					}
-
-					chuncaiSay(showlifetime);
-				} else if (el == 'talking') {
-					var talkcon = smjq("#talk").val();
-					var i = this.tools.in_array(talkcon, dat.ques);
-					var types = typeof(i);
-					if (types != 'boolean') {
-						chuncaiSay(dat.ans[i]);
-						this.setFace(2);
-					} else {
-						chuncaiSay('.......................嗯？');
-						this.setFace(3);
-					}
-					clearInput();
-				} else if (el == 'foods') {
-					var str = '';
-					var arr = dat.foods;
-					var preg = /function/;
-					for (var i in arr) {
-						if (arr[i] != '' && !preg.test(arr[i])) {
-							str += '<ul id="f' + i + '" class="eatfood" onclick="eatfood(this.id)">' + arr[i] + '</ul>';
-						}
-					}
-					chuncaiSay(str);
-				} else if (el = "eatsay") {
-					var str = dat.eatsay[id];
-					chuncaiSay(str);
-					this.setFace(2);
-				} else if (el = "talkself") {
-					var arr = dat.talkself;
-					return arr;
-				}
-			},
-			error: function() {
-				chuncaiSay('好像出错了，是什么错误呢...请联系管理猿');
-			}
-		});
-	},
-
-	showInput: function(closeChuncaiMenu, closeNotice) {
-		closeChuncaiMenu();
-		closeNotice();
+	showInput: function() {
+		this.closeChuncaiMenu();
+		this.closeNotice();
 		this.chuncaiSay("............?");
 		//this.setFace(1);
 		smjq("#addinput").css("display", "block");
@@ -173,7 +100,7 @@ var ghost = {
 	setFace: function(num) {
 		//obj = document.getElementById("hf" + num).src;
 		obj = smjq('#hf' + num).attr('src');
-		smjq("#chuncaiface").attr("style", "background:url(" + obj + ") no-repeat scroll 50% 0% transparent; width:" + imagewidth + "px;height:" + imageheight + "px;");
+		smjq("#chuncaiface").attr("style", "background:url(" + obj + ") no-repeat scroll 50% 0% transparent; width:" + this.data.WCC.data.imagewidth + "px;height:" + this.data.WCC.data.imageheight + "px;");
 	},
 
 	chuncaiMenu: function() {
@@ -202,8 +129,8 @@ var ghost = {
 		this.clearChuncaiSay();
 		smjq("#tempsaying").append(s);
 		smjq("#tempsaying").css("display", "block");
-		weichuncai_text = s;
-		typeWords();
+		this.data.WCC.data.weichuncai_text = s;
+		//typeWords();
 	},
 
 	clearChuncaiSay: function() {
@@ -245,6 +172,77 @@ var ghost = {
 			smjq("#callchuncai").css("display", "block");
 		}, 2000);
 	},
+
+	getdata: function(el, id) {
+		smjq.ajax({
+			type: 'GET',
+			url: ghost.data.WCC.data._weichuncai_path,
+			cache: 'false',
+			dataType: 'html',
+			contentType: 'application/json; charset=utf8',
+			beforeSend: function() {
+				//smjq("#dialog_chat").fadeOut("normal");
+				smjq("#tempsaying").css('display', "none");
+				smjq("#dialog_chat_loading").fadeIn("normal");
+			},
+			success: function(data) {
+				smjq("#dialog_chat_loading").css('display', "none");
+				//smjq("#dialog_chat").fadeIn("normal");
+				smjq("#tempsaying").css('display', "");
+				var dat = eval("(" + data + ")");
+				if (el == 'defaultccs') {
+					ghost.chuncaiSay(dat.defaultccs);
+				} else if (el == 'getnotice') {
+					ghost.chuncaiSay(dat.notice);
+					ghost.setFace(1);
+				} else if (el == 'showlifetime') {
+
+					var showlifetime = dat.showlifetime.replace(/\$time_str\$/, '许久');
+					if (!isNaN(parseInt(dat.lifetime[dat.defaultccs]))) {
+						var this_time = new Date();
+						var build_time = new Date(dat.lifetime[dat.defaultccs]);
+						var time_str = ghost.data.WCC.tools.dateDiff(build_time, this_time);
+
+						showlifetime = dat.showlifetime.replace(/\$time_str\$/, time_str);
+					}
+
+					ghost.chuncaiSay(showlifetime);
+				} else if (el == 'talking') {
+					var talkcon = smjq("#talk").val();
+					var i = ghost.data.WCC.tools.in_array(talkcon, dat.ques);
+					var types = typeof(i);
+					if (types != 'boolean') {
+						ghost.chuncaiSay(dat.ans[i]);
+						ghost.setFace(2);
+					} else {
+						ghost.chuncaiSay('.......................嗯？');
+						ghost.setFace(3);
+					}
+					ghost.clearInput();
+				} else if (el == 'foods') {
+					var str = '';
+					var arr = dat.foods;
+					var preg = /function/;
+					for (var i in arr) {
+						if (arr[i] != '' && !preg.test(arr[i])) {
+							str += '<ul id="f' + i + '" class="eatfood" onclick="eatfood(this.id)">' + arr[i] + '</ul>';
+						}
+					}
+					ghost.chuncaiSay(str);
+				} else if (el = "eatsay") {
+					var str = dat.eatsay[id];
+					ghost.chuncaiSay(str);
+					ghost.setFace(2);
+				} else if (el = "talkself") {
+					var arr = dat.talkself;
+					return arr;
+				}
+			},
+			error: function() {
+				ghost.chuncaiSay('好像出错了，是什么错误呢...请联系管理猿');
+			}
+		});
+	}
 };
 
 var WCC = {
@@ -326,8 +324,8 @@ var WCC = {
 		// '				<ul class="wcc_mlist" id="foods">吃 零 食</ul>'+
 		// '				<ul class="wcc_mlist" id="blogmanage">见我家长</ul>'+
 		// '				<ul class="wcc_mlist" id="lifetimechuncai">生存时间</ul>'+
-		wcc_html += '				<ul class="wcc_mlist" id="closechuncai">关闭春菜</ul>' +
-			wcc_html += '			</div>';
+		wcc_html += '				<ul class="wcc_mlist" id="closechuncai">关闭春菜</ul>';
+		wcc_html += '			</div>';
 		wcc_html += '			<div>';
 		wcc_html += '				<ul id="chuncaisaying"></ul>';
 		wcc_html += '			</div>';
@@ -339,7 +337,10 @@ var WCC = {
 		wcc_html += '</div>';
 		wcc_html += '<div id="callchuncai">召唤春菜</div>';
 
-		return;
+		//return;
+		//
+		ghost.init(this);
+		ghost.createFace("skin/" + this.data.ghost + "/face1.gif", "skin/" + this.data.ghost + "/face2.gif", "skin/" + this.data.ghost + "/face3.gif");
 
 		smjq("body").append(wcc_html);
 		//判断春菜是否处于隐藏状态
@@ -348,18 +349,18 @@ var WCC = {
 			closechuncai_init();
 		}
 		//设置初始状态
-		getdata("getnotice");
-		setFace(1);
+		ghost.getdata("getnotice");
+		ghost.setFace(1);
 
 		smjq("#smchuncai").css('left', width + 'px');
 		smjq("#smchuncai").css('top', height + 'px');
-		smjq("#smchuncai").css('width', imagewidth + 'px');
-		smjq("#smchuncai").css('height', imageheight + 'px');
+		smjq("#smchuncai").css('width', this.data.imagewidth + 'px');
+		smjq("#smchuncai").css('height', this.data.imageheight + 'px');
 		smjq("#callchuncai").attr("style", "top:" + cheight + "px; left:" + cwidth + "px; text-align:center;");
 
 		smcc = document.getElementById("smchuncai");
 		smcc.onmousedown = function() {
-			var ent = getEvent();
+			var ent = WCC.getEvent();
 			moveable = true;
 			moveX = ent.clientX;
 			moveY = ent.clientY;
@@ -371,7 +372,7 @@ var WCC = {
 			}
 			document.onmousemove = function() {
 				if (moveable) {
-					var ent = getEvent();
+					var ent = WCC.getEvent();
 					var x = moveLeft + ent.clientX - moveX;
 					var y = moveTop + ent.clientY - moveY;
 					var w = 200;
@@ -386,8 +387,8 @@ var WCC = {
 					var historyheight = obj.style.top;
 					historywidth = historywidth.replace('px', '');
 					historyheight = historyheight.replace('px', '');
-					this.tools.setCookie("historywidth", historywidth, 60 * 60 * 24 * 30 * 1000);
-					this.tools.setCookie("historyheight", historyheight, 60 * 60 * 24 * 30 * 1000);
+					WCC.tools.setCookie("historywidth", historywidth, 60 * 60 * 24 * 30 * 1000);
+					WCC.tools.setCookie("historyheight", historyheight, 60 * 60 * 24 * 30 * 1000);
 					document.onmousemove = docMouseMoveEvent;
 					document.onmouseup = docMouseUpEvent;
 					moveable = false;
@@ -399,51 +400,51 @@ var WCC = {
 			}
 		};
 		smjq("#getmenu").click(function() {
-			chuncaiMenu();
-			setFace(1);
+			ghost.chuncaiMenu();
+			ghost.setFace(1);
 		});
 		smjq("#closechuncai").click(function() {
-			setFace(3);
-			closechuncai();
+			ghost.setFace(3);
+			WCC.closechuncai();
 		});
 		smjq("#callchuncai").click(function() {
-			setFace(2);
-			callchuncai();
-			this.tools.setCookie("is_closechuncai", '', 60 * 60 * 24 * 30 * 1000);
+			ghost.setFace(2);
+			WCC.callchuncai();
+			WCC.tools.setCookie("is_closechuncai", '', 60 * 60 * 24 * 30 * 1000);
 		});
 
 		document.onmousemove = function() {
-			stoptime();
-			tol = 0;
-			setTime();
+			WCC.stoptime();
+			WCC.tol = 0;
+			WCC.setTime();
 			//chuncaiSay("啊，野生的主人出现了！ ～～～O口O");
 		}
-		talkSelf(talktime);
+		this.talkSelf(this.data.talktime);
 		document.getElementById("smchuncai").onmouseover = function() {
 			if (talkobj) {
 				clearTimeout(talkobj);
 			}
-			talktime = 0;
-			talkSelf(talktime);
+			WCC.data.talktime = 0;
+			WCC.talkSelf(WCC.data.talktime);
 		}
 	},
 
 	talkSelf: function(talktime) {
-		talktime++;
-		var tslen = talkself_arr.length;
+		this.data.talktime++;
+		var tslen = this.data.talkself_arr.length;
 		/*	if(parseInt(tsi) >= parseInt(tslen)){
 					tsi = 0;
 				}*/
-		var yushu = talktime % talkself;
+		var yushu = this.data.talktime % this.data.talkself;
 		if (parseInt(yushu) == parseInt(9)) {
-			closeChuncaiMenu();
-			closeNotice();
-			closeInput();
-			tsi = Math.floor(Math.random() * talkself_arr.length + 1) - 1;
-			chuncaiSay(talkself_arr[tsi][0]);
-			setFace(talkself_arr[tsi][1]);
+			ghost.closeChuncaiMenu();
+			ghost.closeNotice();
+			ghost.closeInput();
+			tsi = Math.floor(Math.random() * this.data.talkself_arr.length + 1) - 1;
+			ghost.chuncaiSay(this.data.talkself_arr[tsi][0]);
+			ghost.setFace(this.data.talkself_arr[tsi][1]);
 		}
-		talkobj = window.setTimeout("talkSelf(" + talktime + ")", 1000);
+		talkobj = window.setTimeout("WCC.talkSelf(" + this.data.talktime + ")", 1000);
 	},
 
 	stopTalkSelf: function() {
@@ -460,7 +461,6 @@ var WCC = {
 		}
 		return result;
 	},
-
 
 	typeWords: function() {
 		var p = 1;
@@ -484,12 +484,9 @@ var WCC = {
 		return window.event || arguments.callee.caller.arguments[0];
 	},
 
-
-
-
 	closechuncai: function() {
-		stopTalkSelf();
-		chuncaiSay("记得再叫我出来哦...");
+		this.stopTalkSelf();
+		ghost.chuncaiSay("记得再叫我出来哦...");
 		smjq("#showchuncaimenu").css("display", "none");
 		setTimeout(function() {
 			smjq("#smchuncai").fadeOut(1200);
@@ -499,9 +496,8 @@ var WCC = {
 		this.tools.setCookie("is_closechuncai", 'close', 60 * 60 * 24 * 30 * 1000);
 	},
 
-	
 	closechuncai_init: function() {
-		stopTalkSelf();
+		this.stopTalkSelf();
 		smjq("#showchuncaimenu").css("display", "none");
 		setTimeout(function() {
 			smjq("#smchuncai").css("display", "none");
@@ -510,33 +506,33 @@ var WCC = {
 	},
 
 	callchuncai: function() {
-		talkSelf(talktime);
+		this.talkSelf(this.data.talktime);
 		smjq("#smchuncai").fadeIn('normal');
 		smjq("#callchuncai").css("display", "none");
-		closeChuncaiMenu();
-		closeNotice();
-		chuncaiSay("我回来啦～");
+		ghost.closeChuncaiMenu();
+		ghost.closeNotice();
+		ghost.chuncaiSay("我回来啦～");
 		this.tools.setCookie("is_closechuncai", '', 60 * 60 * 24 * 30 * 1000);
 	},
 
 	setTime: function() {
-		tol++;
-		//document.body.innerHTML(tol);
-		timenum = window.setTimeout("setTime('" + tol + "')", 1000);
-		if (parseInt(tol) == parseInt(goal)) {
-			stopTalkSelf();
-			closeChuncaiMenu();
-			closeNotice();
-			closeInput();
-			chuncaiSay("主人跑到哪里去了呢....");
-			setFace(3);
-			stoptime();
+		WCC.tol++;
+		//document.body.innerHTML(WCC.tol);
+		this.data.timenum = window.setTimeout("WCC.setTime('" + WCC.tol + "')", 1000);
+		if (parseInt(WCC.tol) == parseInt(this.data.goal)) {
+			this.stopTalkSelf();
+			ghost.closeChuncaiMenu();
+			ghost.closeNotice();
+			ghost.closeInput();
+			ghost.chuncaiSay("主人跑到哪里去了呢....");
+			ghost.setFace(3);
+			this.stoptime();
 		}
 	},
 
 	stoptime: function() {
-		if (timenum) {
-			clearTimeout(timenum);
+		if (this.data.timenum) {
+			clearTimeout(this.data.timenum);
 		}
 	},
 
