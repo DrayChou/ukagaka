@@ -109,7 +109,7 @@ include([
                 '_weichuncai_path': "data.json", //请求的数据文件地址
                 'imagewidth': "240",
                 'imageheight': "240",
-                'ghost': "rakutori",
+                'ghost': "default",
                 'talkself_user': [
                     ["嘻嘻嘻嘻嘻嘻，主人的伪春菜可以自定义说什么话了。", "2"],
                     ["喔耶～加油！加油！加油！加油！", "2"],
