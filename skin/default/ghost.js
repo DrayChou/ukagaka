@@ -9,6 +9,7 @@ var ghost = {
 
     data: {
         eattimes: 0, //吃了几次
+        talkself_arr: [],
         WCC: {}
     },
 
@@ -36,15 +37,20 @@ var ghost = {
      */
     chatTochuncai: function() {
         talk_html = '';
-        talk_html += '  <div id="addinput">';
-        talk_html += '      <div id="inp_l">';
-        talk_html += '          <input id="talk" type="text" name="mastersay" value="" onkeypress="if(event.keyCode==13) {talkto.click();return false;}" />';
-        talk_html += '          <input id="talkto" name="talkto" onclick="ghost.talkto()" type="button" value=" " />';
+        talk_html += '  <div class="addinput">';
+        talk_html += '      <div class="inp_l">';
+        talk_html += '          <input class="talk" type="text" name="mastersay" value=""/>';
+        talk_html += '          <input id="talkto" class="talkto" name="talkto" onclick="ghost.talkto()" type="button" value=" " />';
         talk_html += '      </div>';
-        talk_html += '      <div id="inp_r" onclick="ghost.inp_r()">X</div>';
+        talk_html += '      <div class="inp_r" onclick="ghost.inp_r()">X</div>';
         talk_html += '  </div>';
 
-        jQuery("#smchuncai").append(talk_html);
+        jQuery(".wcc.smchuncai").append(talk_html);
+        jQuery(".wcc.smchuncai .addinput input.talk").keypress(function(event) {
+            if (event.which == 13) {
+                ghost.talkto();
+            }
+        });
         this.showInput();
     },
 
@@ -53,12 +59,12 @@ var ghost = {
         this.data.WCC.closeNotice();
         this.data.WCC.chuncaiSay("............?");
         //ghost.data.WCC.setFace(1);
-        jQuery("#addinput").css("display", "block");
+        jQuery(".wcc .addinput").css("display", "block");
     },
 
     closeInput: function() {
         ghost.data.WCC.setFace(3);
-        jQuery("#addinput").css("display", "none");
+        jQuery(".wcc .addinput").css("display", "none");
     },
 
     inp_r: function() {
@@ -72,7 +78,7 @@ var ghost = {
     },
 
     clearInput: function() {
-        document.getElementById("talk").value = '';
+        $(".wcc.smchuncai .addinput input.talk").val('');
     },
 
     /**
@@ -109,10 +115,10 @@ var ghost = {
 
     closechuncai_evil: function() {
         this.data.WCC.stopTalkSelf();
-        jQuery("#showchuncaimenu").css("display", "none");
+        jQuery(".wcc .showchuncaimenu").css("display", "none");
         setTimeout(function() {
-            jQuery("#smchuncai").fadeOut(1200);
-            jQuery("#callchuncai").css("display", "block");
+            jQuery(".wcc.smchuncai").fadeOut(1200);
+            jQuery(".wcc.callchuncai").css("display", "block");
         }, 2000);
     },
 
@@ -155,19 +161,27 @@ var ghost = {
             contentType: 'application/json; charset=utf8',
             beforeSend: function() {
                 //jQuery("#dialog_chat").fadeOut("normal");
-                jQuery("#tempsaying").css('display', "none");
-                jQuery("#dialog_chat_loading").fadeIn("normal");
+                jQuery(".wcc .tempsaying").css('display', "none");
+                jQuery(".wcc .dialog_chat_loading").fadeIn("normal");
             },
             success: function(data) {
-                jQuery("#dialog_chat_loading").css('display', "none");
+                jQuery(".wcc .dialog_chat_loading").css('display', "none");
                 //jQuery("#dialog_chat").fadeIn("normal");
-                jQuery("#tempsaying").css('display', "");
+                jQuery(".wcc .tempsaying").css('display', "");
                 var dat = eval("(" + data + ")");
                 if (el == 'defaultccs') {
                     ghost.data.WCC.chuncaiSay(dat.defaultccs);
                 } else if (el == 'getnotice') {
+
+                    //整合data里读取的自言自语
+                    if( ghost.data.talkself_arr.length<1 ){
+                        ghost.data.talkself_arr = ghost.data.WCC.data.talkself_arr;
+                    }
+                    ghost.data.WCC.data.talkself_arr = ghost.data.talkself_arr.concat(dat.talkself_user);
+
                     ghost.data.WCC.chuncaiSay(dat.notice);
                     ghost.data.WCC.setFace(1);
+
                 } else if (el == 'showlifetime') {
 
                     var showlifetime = dat.showlifetime.replace(/\$time_str\$/, '许久');
@@ -180,8 +194,10 @@ var ghost = {
                     }
 
                     ghost.data.WCC.chuncaiSay(showlifetime);
+
                 } else if (el == 'talking') {
-                    var talkcon = jQuery("#talk").val();
+
+                    var talkcon = jQuery(".wcc .talk").val();
                     var i = ghost.data.WCC.tools.in_array(talkcon, dat.ques);
                     var types = typeof(i);
                     if (types != 'boolean') {
@@ -192,7 +208,9 @@ var ghost = {
                         ghost.data.WCC.setFace(3);
                     }
                     ghost.clearInput();
+
                 } else if (el == 'foods') {
+
                     var str = '';
                     var arr = dat.foods;
                     var preg = /function/;
@@ -202,13 +220,18 @@ var ghost = {
                         }
                     }
                     ghost.data.WCC.chuncaiSay(str);
+
                 } else if (el = "eatsay") {
+
                     var str = dat.eatsay[id];
                     ghost.data.WCC.chuncaiSay(str);
                     ghost.data.WCC.setFace(2);
+
                 } else if (el = "talkself") {
+
                     var arr = dat.talkself;
                     return arr;
+
                 }
             },
             error: function() {

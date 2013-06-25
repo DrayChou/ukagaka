@@ -1,0 +1,192 @@
+.wcc.smchuncai
+{
+    opacity:#85;
+    width:160px;
+    height:160px;
+    position:fixed;
+    top:400px;
+    left:800px;
+    font-size:12px;
+}
+
+.wcc .chuncaiface
+{
+    width:160px;
+    height:160px;
+    background-repeat:no-repeat;
+    position:absolute;
+    top:0;
+    left:0;
+}
+
+.wcc .showchuncaimenu
+{
+    float:left;
+    text-align:left;
+    width:100%;
+    overflow:hidden;
+    display:none;
+}
+
+.wcc .tempsaying ul
+{
+    float:left;
+    line-height:16px;
+    cursor:pointer;
+    overflow:hidden;
+    width:96%;
+    margin:1px 0 0;
+    padding:0 0 0 5px;
+}
+
+.wcc .wcc_mlist
+{
+    text-align:center;
+    width:47%;
+    float:left;
+    line-height:16px;
+    cursor:pointer;
+    overflow:hidden;
+    margin:0;
+    padding:0 0 4px;
+}
+
+.wcc.callchuncai
+{
+    position:fixed;
+    width:60px;
+    line-height:16px;
+    cursor:pointer;
+    display:none;
+    font-size:12px;
+    border:1px solid #e87a73;
+    background-color:#FFF;
+}
+
+.wcc .dialog_chat
+{
+    position:absolute;
+    top:0;
+    left:-205px;
+    width:200px;
+    line-height:23px;
+    text-align:left;
+}
+
+.wcc .dialog_chat_loading
+{
+    width:200px;
+    height:30px;
+    background:url(../imgs/loading.gif) no-repeat center center;
+    display:none;
+}
+
+.wcc .chat_top
+{
+    float:left;
+    width:200px;
+    height:5px;
+    overflow:hidden;
+    background:url(../imgs/chat_top.gif) no-repeat;
+}
+
+.wcc .dialog_chat_contents,.wcc .chuncaisaying,.wcc .getmenu,.wcc .tempsaying
+{
+    float:left;
+    padding-left:0;
+    width:198px;
+    line-height:23px;
+    background-color:#FFE;
+    margin:0;
+}
+
+.wcc .getmenu,.wcc .tempsaying,.wcc .chuncaisaying
+{
+    width:196px;
+    padding:0 0 0 2px;
+}
+
+.wcc .dialog_chat_contents
+{
+    width:198px;
+    border-left:1px solid #e87a73;
+    border-right:1px solid #e87a73;
+}
+
+.wcc .chat_bottom
+{
+    width:200px;
+    height:10px;
+    float:left;
+    background:url(../imgs/chat_bottom.gif) no-repeat;
+}
+
+.wcc .tempsaying,.wcc .hiddenfaces
+{
+    display:none;
+}
+
+.wcc .getmenu
+{
+    width:95%;
+    height:16px;
+    cursor:pointer;
+    background:url(../imgs/menu.jpg) no-repeat top right;
+    margin:0;
+    padding:0;
+}
+
+.wcc .addinput
+{
+    width:240px;
+    height:20px;
+    position:absolute;
+    top:150px;
+    left:-260px;
+    border:1px solid #888;
+    background-color:#FFF;
+    padding-top:2px;
+    overflow:hidden;
+    display:none;
+}
+
+.wcc .inp_l
+{
+    float:left;
+    width:220px;
+    height:20px;
+}
+
+.wcc .inp_r
+{
+    float:right;
+    width:20px;
+    height:20px;
+    font-size:12px;
+    text-align:center;
+    cursor:pointer;
+}
+
+.wcc .talk
+{
+    border:none;
+    float:left;
+    width:180px;
+    height:16px;
+}
+
+.wcc .talkto
+{
+    float:left;
+    border:none;
+    width:30px;
+    height:16px;
+    background:url(../imgs/ok.jpg);
+    cursor:pointer;
+}
+
+* html .wcc.smchuncai,* html .wcc.callchuncai
+{
+    position:absolute;
+}
+
