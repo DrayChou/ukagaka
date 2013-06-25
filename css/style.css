@@ -1,6 +1,6 @@
-#smchuncai
+.wcc.smchuncai
 {
-    opacity:.85;
+    opacity:#85;
     width:160px;
     height:160px;
     position:fixed;
@@ -9,7 +9,7 @@
     font-size:12px;
 }
 
-#chuncaiface
+.wcc .chuncaiface
 {
     width:160px;
     height:160px;
@@ -19,7 +19,7 @@
     left:0;
 }
 
-#showchuncaimenu
+.wcc .showchuncaimenu
 {
     float:left;
     text-align:left;
@@ -28,7 +28,7 @@
     display:none;
 }
 
-#tempsaying ul
+.wcc .tempsaying ul
 {
     float:left;
     line-height:16px;
@@ -39,7 +39,7 @@
     padding:0 0 0 5px;
 }
 
-.wcc_mlist
+.wcc .wcc_mlist
 {
     text-align:center;
     width:47%;
@@ -51,7 +51,7 @@
     padding:0 0 4px;
 }
 
-#callchuncai
+.wcc.callchuncai
 {
     position:fixed;
     width:60px;
@@ -63,7 +63,7 @@
     background-color:#FFF;
 }
 
-#dialog_chat
+.wcc .dialog_chat
 {
     position:absolute;
     top:0;
@@ -73,7 +73,7 @@
     text-align:left;
 }
 
-#dialog_chat_loading
+.wcc .dialog_chat_loading
 {
     width:200px;
     height:30px;
@@ -81,7 +81,7 @@
     display:none;
 }
 
-#chat_top
+.wcc .chat_top
 {
     float:left;
     width:200px;
@@ -90,7 +90,7 @@
     background:url(../imgs/chat_top.gif) no-repeat;
 }
 
-#dialog_chat_contents,#chuncaisaying,#getmenu,#tempsaying
+.wcc .dialog_chat_contents,.wcc .chuncaisaying,.wcc .getmenu,.wcc .tempsaying
 {
     float:left;
     padding-left:0;
@@ -100,20 +100,20 @@
     margin:0;
 }
 
-#getmenu,#tempsaying,#chuncaisaying
+.wcc .getmenu,.wcc .tempsaying,.wcc .chuncaisaying
 {
     width:196px;
     padding:0 0 0 2px;
 }
 
-#dialog_chat_contents
+.wcc .dialog_chat_contents
 {
     width:198px;
     border-left:1px solid #e87a73;
     border-right:1px solid #e87a73;
 }
 
-#chat_bottom
+.wcc .chat_bottom
 {
     width:200px;
     height:10px;
@@ -121,12 +121,12 @@
     background:url(../imgs/chat_bottom.gif) no-repeat;
 }
 
-#tempsaying,#hiddenfaces
+.wcc .tempsaying,.wcc .hiddenfaces
 {
     display:none;
 }
 
-#getmenu
+.wcc .getmenu
 {
     width:95%;
     height:16px;
@@ -136,7 +136,7 @@
     padding:0;
 }
 
-#addinput
+.wcc .addinput
 {
     width:240px;
     height:20px;
@@ -150,14 +150,14 @@
     display:none;
 }
 
-#inp_l
+.wcc .inp_l
 {
     float:left;
     width:220px;
     height:20px;
 }
 
-#inp_r
+.wcc .inp_r
 {
     float:right;
     width:20px;
@@ -167,7 +167,7 @@
     cursor:pointer;
 }
 
-#talk
+.wcc .talk
 {
     border:none;
     float:left;
@@ -175,7 +175,7 @@
     height:16px;
 }
 
-#talkto
+.wcc .talkto
 {
     float:left;
     border:none;
@@ -185,7 +185,7 @@
     cursor:pointer;
 }
 
-* html #smchuncai,* html #callchuncai
+* html .wcc.smchuncai,* html .wcc.callchuncai
 {
     position:absolute;
 }
