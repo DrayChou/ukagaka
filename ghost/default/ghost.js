@@ -10,13 +10,17 @@ var ghost = {
     data: {
         eattimes: 0, //吃了几次
         talkself_arr: [],
+        face: {
+            '1': "face1.gif",
+            '2': "face2.gif",
+            '3': "face3.gif"
+        },
         WCC: {}
     },
 
     init: function(WCC) {
         this.data.WCC = WCC;
-        var skin = this.data.WCC.data._site_path + "ghost/" + this.data.WCC.data.ghost + "/";
-        this.data.WCC.createFace(skin + "face1.gif", skin + "face2.gif", skin + "face3.gif");
+        this.data.WCC.createFace(this.data.face);
     },
 
     /**
@@ -173,7 +177,7 @@ var ghost = {
                 } else if (el == 'getnotice') {
 
                     //整合data里读取的自言自语
-                    if( ghost.data.talkself_arr.length<1 ){
+                    if (ghost.data.talkself_arr.length < 1) {
                         ghost.data.talkself_arr = ghost.data.WCC.data.talkself_arr;
                     }
                     ghost.data.WCC.data.talkself_arr = ghost.data.talkself_arr.concat(dat.talkself_user);

@@ -218,11 +218,11 @@ var WCC = {
 	},
 
 	// 初始化表情
-	createFace: function(a, b, c) {
+	createFace: function(face) {
 		var html = '<div class="hiddenfaces">';
-		html += '<img class="hf1" src="' + a + '" />';
-		html += '<img class="hf2" src="' + b + '" />';
-		html += '<img class="hf3" src="' + c + '" />';
+		for (var i in face) {
+			html += '<img class="hf' + i + '" src="' + WCC.data._site_path + "ghost/" + WCC.data.ghost + "/" + face[i] + '" />';
+		}
 		html += '</div>';
 
 		$("head").append(html);
