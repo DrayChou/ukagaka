@@ -11,6 +11,8 @@ var WCC = {
 		//10分钟后页面没有响应就停止活动
 		goal: 10 * 60,
 		_typei: 0,
+
+		//春菜的话语
 		weichuncai_text: '',
 
 		_weichuncai_path: "data.json", //请求的数据文件地址
@@ -38,11 +40,11 @@ var WCC = {
 				WCC.build();
 				return true;
 			} else {
-				WCC.chuncaiSay( "角色" +WCC.data.ghost + "初始化失败！请联系管理员" );
+				WCC.chuncaiSay("角色" + WCC.data.ghost + "初始化失败！请联系管理员");
 				return false;
 			}
 		}).fail(function(jqxhr, settings, exception) {
-			WCC.chuncaiSay( "加载角色" + WCC.data.ghost + "失败！请联系管理员" );
+			WCC.chuncaiSay("加载角色" + WCC.data.ghost + "失败！请联系管理员");
 			return false;
 		});
 	},

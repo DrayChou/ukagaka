@@ -147,9 +147,9 @@ function parallelLoadScripts(scripts, callback) {
 // 多个文件以数组的形式书写，每个文件可以单独带回调，
 // 最后一个回调将在最后一个文件加载完后调用
 include([
-    ["css/style.css"],
+    ["../css/style.css"],
     ["http://code.jquery.com/jquery.min.js"],
-    ["js/common.js",
+    ["../js/common.js",
         function() {
             //createFace("skin/default/face1.gif", "skin/default/face2.gif", "skin/default/face3.gif");
             WCC.init({
