@@ -15,6 +15,7 @@ var WCC = {
 		//春菜的话语
 		weichuncai_text: '',
 
+		_site_path: "", //基础路径
 		_weichuncai_path: "data.json", //请求的数据文件地址
 		imagewidth: '240', //伪春菜的大小
 		imageheight: '240', //伪春菜的大小
@@ -33,7 +34,7 @@ var WCC = {
 	},
 
 	load_ghost: function() {
-		jQuery.getScript("skin/" + WCC.data.ghost + "/ghost.js").done(function() {
+		jQuery.getScript(WCC.data._site_path + "skin/" + WCC.data.ghost + "/ghost.js").done(function() {
 			if (ghost && ghost.action) {
 				ghost.init(WCC);
 				WCC.data.this_ghost = ghost;

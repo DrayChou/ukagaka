@@ -91,6 +91,7 @@ function include(file, callback, callID) {
 
 //串行加载函数
 //http://blog.sina.com.cn/s/blog_68693f9801016zo6.html
+
 function seriesLoadScripts(scripts, callback) {
     if (typeof(scripts) != "object") var scripts = [scripts];
     var HEAD = document.getElementsByTagName("head").item(0) || document.documentElement;
@@ -115,6 +116,7 @@ function seriesLoadScripts(scripts, callback) {
 
 //并行加载函数
 //http://blog.sina.com.cn/s/blog_68693f9801016zo6.html
+
 function parallelLoadScripts(scripts, callback) {
     if (typeof(scripts) != "object") var scripts = [scripts];
     var HEAD = document.getElementsByTagName("head").item(0) || document.documentElement,
@@ -143,18 +145,20 @@ function parallelLoadScripts(scripts, callback) {
 // });
 // 
 
+var http_base = "https://raw.github.com/DrayChou/ukagaka/master/";
+
 // 第二种 多个文件，带回调
 // 多个文件以数组的形式书写，每个文件可以单独带回调，
 // 最后一个回调将在最后一个文件加载完后调用
 include([
-    ["../css/style.css"],
+    [http_base + "css/style.css"],
     ["http://code.jquery.com/jquery.min.js"],
-    ["../js/common.js",
+    [http_base + "js/common.js",
         function() {
             //createFace("skin/default/face1.gif", "skin/default/face2.gif", "skin/default/face3.gif");
             WCC.init({
-                '_site_path': "", //站点地址
-                '_weichuncai_path': "data.json", //请求的数据文件地址
+                '_site_path': http_base, //站点地址
+                '_weichuncai_path': http_base + "data.json", //请求的数据文件地址
                 'imagewidth': "240",
                 'imageheight': "240",
                 'ghost': "default",
