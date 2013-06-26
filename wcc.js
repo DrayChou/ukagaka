@@ -145,7 +145,7 @@ function parallelLoadScripts(scripts, callback) {
 // });
 // 
 
-var http_base = "https://raw.github.com/DrayChou/ukagaka/master/";
+var http_base = "/assets/wcc/";
 
 // 第二种 多个文件，带回调
 // 多个文件以数组的形式书写，每个文件可以单独带回调，
