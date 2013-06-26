@@ -34,7 +34,7 @@ var WCC = {
 	},
 
 	load_ghost: function() {
-		$.getScript(WCC.data._site_path + "skin/" + WCC.data.ghost + "/ghost.js").done(function() {
+		$.getScript(WCC.data._site_path + "ghost/" + WCC.data.ghost + "/ghost.js").done(function() {
 			if (ghost && ghost.action) {
 				ghost.init(WCC);
 				WCC.data.this_ghost = ghost;

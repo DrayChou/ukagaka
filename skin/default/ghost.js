@@ -15,7 +15,7 @@ var ghost = {
 
     init: function(WCC) {
         this.data.WCC = WCC;
-        var skin = this.data.WCC.data._site_path + "skin/" + this.data.WCC.data.ghost + "/";
+        var skin = this.data.WCC.data._site_path + "ghost/" + this.data.WCC.data.ghost + "/";
         this.data.WCC.createFace(skin + "face1.gif", skin + "face2.gif", skin + "face3.gif");
     },
 
