@@ -152,7 +152,6 @@ var http_base = "https://raw.github.com/DrayChou/ukagaka/master/";
 // 最后一个回调将在最后一个文件加载完后调用
 include([
     [http_base + "css/style.css"],
-    ["http://code.jquery.com/jquery.min.js"],
     [http_base + "js/common.js",
         function() {
             jQuery = $;
