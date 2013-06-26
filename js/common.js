@@ -51,10 +51,11 @@ var WCC = {
 	},
 
 	build: function() {
+		var wcc_html = "";
 		for (var i = this.data.this_ghost.action.length - 1; i >= 0; i--) {
-			var wcc_html = '				<ul class="wcc_mlist ghost_envent" id="' + this.data.this_ghost.action[i][0] + '">' + this.data.this_ghost.action[i][1] + '</ul>';
-			$(".wcc .showchuncaimenu").prepend(wcc_html);
+			wcc_html += '<ul class="wcc_mlist ghost_envent" id="' + this.data.this_ghost.action[i][0] + '">' + this.data.this_ghost.action[i][1] + '</ul>';
 		};
+		$(".wcc .showchuncaimenu").prepend(wcc_html);
 
 		$(".wcc .getmenu").click(function() {
 			WCC.chuncaiMenu();

@@ -154,7 +154,6 @@ include([
     [http_base + "css/style.css"],
     [http_base + "js/common.js",
         function() {
-            jQuery = $;
             WCC.init({
                 '_site_path': http_base, //站点地址
                 '_weichuncai_path': http_base + "data.json", //请求的数据文件地址
