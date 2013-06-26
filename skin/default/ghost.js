@@ -3,7 +3,7 @@ var ghost = {
         ['shownotice', '显示公告'],
         ['chatTochuncai', '聊&nbsp;&nbsp;&nbsp;&nbsp;天'],
         ['foods', '吃 零 食'],
-        ['meetparents', '见我家长'],
+        ['meetparents', '见 家 长'],
         ['lifetimechuncai', '生存时间']
     ],
 
@@ -133,8 +133,7 @@ var ghost = {
         this.data.WCC.chuncaiSay("马上就跳转到我父母去了哦～～～");
         ghost.data.WCC.setFace(2);
         setTimeout(function() {
-            window.open('http://www.lmyoaoa.com/inn/archives/4504/');
-            //window.location.href = _site_path+'/wp-admin/';
+            window.location.href = 'https://github.com/DrayChou/ukagaka/';
         }, 2000);
     },
 
