@@ -34,7 +34,7 @@ var WCC = {
 	},
 
 	load_ghost: function() {
-		jQuery.getScript(WCC.data._site_path + "skin/" + WCC.data.ghost + "/ghost.js").done(function() {
+		$.getScript(WCC.data._site_path + "skin/" + WCC.data.ghost + "/ghost.js").done(function() {
 			if (ghost && ghost.action) {
 				ghost.init(WCC);
 				WCC.data.this_ghost = ghost;
@@ -56,21 +56,21 @@ var WCC = {
 			$(".wcc .showchuncaimenu").prepend(wcc_html);
 		};
 
-		jQuery(".wcc .getmenu").click(function() {
+		$(".wcc .getmenu").click(function() {
 			WCC.chuncaiMenu();
 			WCC.setFace(1);
 		});
-		jQuery(".wcc .closechuncai").click(function() {
+		$(".wcc .closechuncai").click(function() {
 			WCC.setFace(3);
 			WCC.closechuncai();
 		});
-		jQuery(".wcc.callchuncai").click(function() {
+		$(".wcc.callchuncai").click(function() {
 			WCC.setFace(2);
 			WCC.callchuncai();
 			WCC.tools.setCookie("is_closechuncai", '', 60 * 60 * 24 * 30 * 1000);
 		});
 
-		jQuery('.wcc .ghost_envent').click(function() {
+		$('.wcc .ghost_envent').click(function() {
 			var event = this.id;
 			if (WCC.data.this_ghost[event]) {
 				WCC.data.this_ghost[event]();
@@ -83,7 +83,7 @@ var WCC = {
 			}
 		});
 
-		// jQuery(".wcc .chuncaiface").mousemove(function() {
+		// $(".wcc .chuncaiface").mousemove(function() {
 		// 	WCC.stoptime();
 		// 	WCC.data.tol = 0;
 		// 	WCC.setTime();
@@ -91,7 +91,7 @@ var WCC = {
 		// });
 		this.talkSelf(this.data.talktime);
 
-		jQuery(".wcc.smchuncai").mouseover(function() {
+		$(".wcc.smchuncai").mouseover(function() {
 			if (talkobj) {
 				clearTimeout(talkobj);
 			}
@@ -145,7 +145,7 @@ var WCC = {
 		wcc_html += '</div>';
 		wcc_html += '<div class="wcc callchuncai">召唤春菜</div>';
 
-		jQuery("body").append(wcc_html);
+		$("body").append(wcc_html);
 
 		var getwidth = this.tools.getCookie("historywidth");
 		var getheight = this.tools.getCookie("historyheight");
@@ -167,8 +167,8 @@ var WCC = {
 		var docMouseMoveEvent = document.onmousemove;
 		var docMouseUpEvent = document.onmouseup;
 
-		jQuery(".wcc.callchuncai").attr("style", "top:" + cheight + "px; left:" + cwidth + "px; text-align:center;");
-		jQuery(".wcc.smchuncai").css('left', width + 'px')
+		$(".wcc.callchuncai").attr("style", "top:" + cheight + "px; left:" + cwidth + "px; text-align:center;");
+		$(".wcc.smchuncai").css('left', width + 'px')
 			.css('top', height + 'px')
 			.css('width', this.data.imagewidth + 'px')
 			.css('height', this.data.imageheight + 'px')
@@ -179,7 +179,7 @@ var WCC = {
 			moveable = true;
 			moveX = ent.clientX;
 			moveY = ent.clientY;
-			obj = jQuery(".wcc.smchuncai");
+			obj = $(".wcc.smchuncai");
 
 			moveTop = parseInt(obj.css('top'));
 			moveLeft = parseInt(obj.css('left'));
@@ -224,14 +224,14 @@ var WCC = {
 		html += '<img class="hf3" src="' + c + '" />';
 		html += '</div>';
 
-		jQuery("head").append(html);
+		$("head").append(html);
 		this.setFace(1);
 	},
 
 	// 设置表情
 	setFace: function(num) {
-		obj = jQuery('.hiddenfaces img.hf' + num).attr('src');
-		jQuery(".wcc .chuncaiface").attr("style", "background:url(" + obj + ") no-repeat scroll 50% 0% transparent; width:" + this.data.imagewidth + "px;height:" + this.data.imageheight + "px;");
+		obj = $('.hiddenfaces img.hf' + num).attr('src');
+		$(".wcc .chuncaiface").attr("style", "background:url(" + obj + ") no-repeat scroll 50% 0% transparent; width:" + this.data.imagewidth + "px;height:" + this.data.imageheight + "px;");
 	},
 
 	//弹出春菜的菜单
@@ -243,42 +243,42 @@ var WCC = {
 		}
 
 		this.chuncaiSay("准备做什么呢？");
-		jQuery(".wcc .showchuncaimenu").css("display", "block");
-		jQuery(".wcc .getmenu").css("display", "none");
-		jQuery(".wcc .chuncaisaying").css("display", "none");
+		$(".wcc .showchuncaimenu").css("display", "block");
+		$(".wcc .getmenu").css("display", "none");
+		$(".wcc .chuncaisaying").css("display", "none");
 	},
 
 	//关闭春菜的菜单
 	closeChuncaiMenu: function() {
 		this.clearChuncaiSay();
-		jQuery(".wcc .showchuncaimenu").css("display", "none");
-		//jQuery("#chuncaisaying").css("display", "block");
+		$(".wcc .showchuncaimenu").css("display", "none");
+		//$("#chuncaisaying").css("display", "block");
 		this.showNotice();
-		jQuery(".wcc .getmenu").css("display", "block");
+		$(".wcc .getmenu").css("display", "block");
 	},
 
 	//显示提示信息
 	showNotice: function() {
-		jQuery(".wcc .chuncaisaying").css("display", "block");
+		$(".wcc .chuncaisaying").css("display", "block");
 	},
 
 	// 关闭提示信息
 	closeNotice: function() {
-		jQuery(".wcc .chuncaisaying").css("display", "none");
+		$(".wcc .chuncaisaying").css("display", "none");
 	},
 
 	//春菜说话
 	chuncaiSay: function(s) {
 		this.clearChuncaiSay();
-		jQuery(".wcc .tempsaying").append(s);
-		jQuery(".wcc .tempsaying").css("display", "block");
+		$(".wcc .tempsaying").append(s);
+		$(".wcc .tempsaying").css("display", "block");
 		this.data.weichuncai_text = s;
 		this.typeWords();
 	},
 
 	//清空春菜说的话
 	clearChuncaiSay: function() {
-		jQuery(".wcc .tempsaying").html('');
+		$(".wcc .tempsaying").html('');
 	},
 
 	//自言自语
@@ -312,10 +312,10 @@ var WCC = {
 	closechuncai: function() {
 		this.stopTalkSelf();
 		this.chuncaiSay("记得再叫我出来哦...");
-		jQuery(".wcc .showchuncaimenu").css("display", "none");
+		$(".wcc .showchuncaimenu").css("display", "none");
 		setTimeout(function() {
-			jQuery(".wcc.smchuncai").fadeOut(1200);
-			jQuery(".callchuncai").css("display", "block");
+			$(".wcc.smchuncai").fadeOut(1200);
+			$(".callchuncai").css("display", "block");
 		}, 2000);
 		//保存关闭状态的春菜
 		this.tools.setCookie("is_closechuncai", 'close', 60 * 60 * 24 * 30 * 1000);
@@ -324,18 +324,18 @@ var WCC = {
 	//关闭春菜，不预订
 	closechuncai_init: function() {
 		this.stopTalkSelf();
-		jQuery(".wcc .showchuncaimenu").css("display", "none");
+		$(".wcc .showchuncaimenu").css("display", "none");
 		setTimeout(function() {
-			jQuery(".wcc.smchuncai").css("display", "none");
-			jQuery(".callchuncai").css("display", "block");
+			$(".wcc.smchuncai").css("display", "none");
+			$(".callchuncai").css("display", "block");
 		}, 30);
 	},
 
 	//开启春菜
 	callchuncai: function() {
 		this.talkSelf(this.data.talktime);
-		jQuery(".wcc.smchuncai").fadeIn('normal');
-		jQuery(".callchuncai").css("display", "none");
+		$(".wcc.smchuncai").fadeIn('normal');
+		$(".callchuncai").css("display", "none");
 		this.closeChuncaiMenu();
 		this.closeNotice();
 		this.chuncaiSay("我回来啦～");
@@ -377,7 +377,7 @@ var WCC = {
 			p = this.data.weichuncai_text.substr(this.data._typei).indexOf(">") + 1;
 		}
 		this.data._typei += p;
-		jQuery('.wcc .tempsaying').html(str);
+		$('.wcc .tempsaying').html(str);
 		txtst = setTimeout("WCC.typeWords()", 20);
 		if (this.data._typei > this.data.weichuncai_text.length) {
 			clearTimeout(txtst);

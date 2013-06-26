@@ -45,8 +45,8 @@ var ghost = {
         talk_html += '      <div class="inp_r" onclick="ghost.inp_r()">X</div>';
         talk_html += '  </div>';
 
-        jQuery(".wcc.smchuncai").append(talk_html);
-        jQuery(".wcc.smchuncai .addinput input.talk").keypress(function(event) {
+        $(".wcc.smchuncai").append(talk_html);
+        $(".wcc.smchuncai .addinput input.talk").keypress(function(event) {
             if (event.which == 13) {
                 ghost.talkto();
             }
@@ -59,12 +59,12 @@ var ghost = {
         this.data.WCC.closeNotice();
         this.data.WCC.chuncaiSay("............?");
         //ghost.data.WCC.setFace(1);
-        jQuery(".wcc .addinput").css("display", "block");
+        $(".wcc .addinput").css("display", "block");
     },
 
     closeInput: function() {
         ghost.data.WCC.setFace(3);
-        jQuery(".wcc .addinput").css("display", "none");
+        $(".wcc .addinput").css("display", "none");
     },
 
     inp_r: function() {
@@ -115,10 +115,10 @@ var ghost = {
 
     closechuncai_evil: function() {
         this.data.WCC.stopTalkSelf();
-        jQuery(".wcc .showchuncaimenu").css("display", "none");
+        $(".wcc .showchuncaimenu").css("display", "none");
         setTimeout(function() {
-            jQuery(".wcc.smchuncai").fadeOut(1200);
-            jQuery(".wcc.callchuncai").css("display", "block");
+            $(".wcc.smchuncai").fadeOut(1200);
+            $(".wcc.callchuncai").css("display", "block");
         }, 2000);
     },
 
@@ -129,7 +129,7 @@ var ghost = {
     meetparents: function() {
         this.data.WCC.closeChuncaiMenu();
         this.data.WCC.closeNotice();
-        //jQuery("#getmenu").css("display", "none");
+        //$("#getmenu").css("display", "none");
         this.data.WCC.chuncaiSay("马上就跳转到我父母去了哦～～～");
         ghost.data.WCC.setFace(2);
         setTimeout(function() {
@@ -153,21 +153,21 @@ var ghost = {
      * 读取数据
      */
     getdata: function(el, id) {
-        jQuery.ajax({
+        $.ajax({
             type: 'GET',
             url: ghost.data.WCC.data._weichuncai_path,
             cache: 'false',
             dataType: 'html',
             contentType: 'application/json; charset=utf8',
             beforeSend: function() {
-                //jQuery("#dialog_chat").fadeOut("normal");
-                jQuery(".wcc .tempsaying").css('display', "none");
-                jQuery(".wcc .dialog_chat_loading").fadeIn("normal");
+                //$("#dialog_chat").fadeOut("normal");
+                $(".wcc .tempsaying").css('display', "none");
+                $(".wcc .dialog_chat_loading").fadeIn("normal");
             },
             success: function(data) {
-                jQuery(".wcc .dialog_chat_loading").css('display', "none");
-                //jQuery("#dialog_chat").fadeIn("normal");
-                jQuery(".wcc .tempsaying").css('display', "");
+                $(".wcc .dialog_chat_loading").css('display', "none");
+                //$("#dialog_chat").fadeIn("normal");
+                $(".wcc .tempsaying").css('display', "");
                 var dat = eval("(" + data + ")");
                 if (el == 'defaultccs') {
                     ghost.data.WCC.chuncaiSay(dat.defaultccs);
@@ -197,7 +197,7 @@ var ghost = {
 
                 } else if (el == 'talking') {
 
-                    var talkcon = jQuery(".wcc .talk").val();
+                    var talkcon = $(".wcc .talk").val();
                     var i = ghost.data.WCC.tools.in_array(talkcon, dat.ques);
                     var types = typeof(i);
                     if (types != 'boolean') {

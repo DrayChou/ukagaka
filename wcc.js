@@ -155,7 +155,7 @@ include([
     ["http://code.jquery.com/jquery.min.js"],
     [http_base + "js/common.js",
         function() {
-            //createFace("skin/default/face1.gif", "skin/default/face2.gif", "skin/default/face3.gif");
+            jQuery = $;
             WCC.init({
                 '_site_path': http_base, //站点地址
                 '_weichuncai_path': http_base + "data.json", //请求的数据文件地址
