@@ -155,23 +155,17 @@ var ghost = {
     /**
      * 读取数据
      */
-    getdata: function(el, id) {
-        $.ajax({
-            type: 'GET',
-            url: ghost.data.WCC.data._weichuncai_path,
-            cache: 'false',
-            dataType: 'html',
-            contentType: 'application/json; charset=utf8',
-            beforeSend: function() {
-                //$("#dialog_chat").fadeOut("normal");
-                $(".wcc .tempsaying").css('display', "none");
-                $(".wcc .dialog_chat_loading").fadeIn("normal");
-            },
-            success: function(data) {
-                $(".wcc .dialog_chat_loading").css('display', "none");
+     getdata: function(el, id) {
+		//$("#dialog_chat").fadeOut("normal");
+        $(".wcc .tempsaying").css('display', "none");
+        $(".wcc .dialog_chat_loading").fadeIn("normal");
+	     
+	     $.getJSON( ghost.data.WCC.data._weichuncai_path, { time: new Date().getTime() } )
+			.done(function( dat ) {
+				$(".wcc .dialog_chat_loading").css('display', "none");
                 //$("#dialog_chat").fadeIn("normal");
                 $(".wcc .tempsaying").css('display', "");
-                var dat = eval("(" + data + ")");
+
                 if (el == 'defaultccs') {
                     ghost.data.WCC.chuncaiSay(dat.defaultccs);
                 } else if (el == 'getnotice') {
@@ -236,10 +230,9 @@ var ghost = {
                     return arr;
 
                 }
-            },
-            error: function() {
-                ghost.data.WCC.chuncaiSay('好像出错了，是什么错误呢...请联系管理猿');
-            }
-        });
+			})
+			.fail(function( jqxhr, textStatus, error ) {
+				ghost.data.WCC.chuncaiSay('好像出错了，是什么错误呢...请联系管理猿');
+		});
     }
 };
